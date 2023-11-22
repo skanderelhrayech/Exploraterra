@@ -1,0 +1,48 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Vol index{% endblock %}
+
+{% block body %}
+    <h1>Vol index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NumeroVol</th>
+                <th>DateDepart</th>
+                <th>DateArrivee</th>
+                <th>LieuDepart</th>
+                <th>LieuArrivee</th>
+                <th>CompagnieAerienne</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vol in vols %}
+            <tr>
+                <td>{{ vol.id }}</td>
+                <td>{{ vol.numeroVol }}</td>
+                <td>{{ vol.dateDepart ? vol.dateDepart|date('Y-m-d') : '' }}</td>
+                <td>{{ vol.dateArrivee ? vol.dateArrivee|date('Y-m-d') : '' }}</td>
+                <td>{{ vol.LieuDepart }}</td>
+                <td>{{ vol.LieuArrivee }}</td>
+                <td>{{ vol.compagnieAerienne }}</td>
+                <td><img src="../uploads/{{ vol.imagePath }}" class="img-fluid" height="100" width="125"></td>
+
+                <td>
+                    <a href="{{ path('app_vol_show', {'id': vol.id}) }}">show</a>
+                    <a href="{{ path('app_vol_edit', {'id': vol.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_vol_new') }}">Create new</a>
+{% endblock %}
